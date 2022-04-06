@@ -12,6 +12,8 @@ First, you have to install dependencies
 
 - `npm i`
 
+Afterwards, you will need to copy the environment variables from .env.example to a new file named `.env`
+
 then start the server using:
 
 - `npm run dev`
