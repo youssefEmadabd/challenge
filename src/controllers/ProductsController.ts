@@ -12,19 +12,28 @@ const productService = new ProductService(Product);
 
 class ProductsController extends Controller<IProduct, ProductService> {
     async create(req: IReq, res: IRes) {
+        console.log("🚀 ~ file: ProductsController.ts ~ line 16 ~ ProductsController ~ create ~ req.user.role", req.user.role)
         if (req.user.role !== 'admin' && req.user.role !== 'seller')
             throw new ApiError(httpStatus.BAD_REQUEST, 'You are not authorized to perform this action');
-        super.create(req, res)
+        const { body } = req;
+        const product: IProduct = await productService.create({ ...body, sellerId: req.user.sub });
+        if (!product) throw new ApiError(httpStatus.NOT_FOUND, 'Product not found');
+        res.status(httpStatus.CREATED).json(product);
     }
     async update(req: IReq, res: IRes) {
         if (req.user.role !== 'admin' && req.user.role !== 'seller')
             throw new ApiError(httpStatus.BAD_REQUEST, 'You are not authorized to perform this action');
-        super.update(req, res)
+        const { body } = req;
+        const product: IProduct = await productService.update({ _id: body.productId }, body);
+        if (!product) throw new ApiError(httpStatus.NOT_FOUND, 'Product not found');
+        res.status(httpStatus.CREATED).json(product);
     }
     async delete(req: IReq, res: IRes) {
         if (req.user.role !== 'admin' && req.user.role !== 'seller')
             throw new ApiError(httpStatus.BAD_REQUEST, 'You are not authorized to perform this action');
-        super.delete(req, res)
+        const product: IProduct = await productService.delete({ _id: req.body.productId });
+        if (!product) throw new ApiError(httpStatus.NOT_FOUND, 'Product not found');
+        res.status(httpStatus.NO_CONTENT).send();
     }
 }
 
