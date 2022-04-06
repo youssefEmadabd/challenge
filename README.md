@@ -40,7 +40,7 @@ It is assumed you are running this server locally, thus the domain will be local
 - Patch `localhost:5000/v1/roles/` with `bearer token` in the headers
 - Delete `localhost:5000/v1/roles/` with `bearer token` in the headers
 
-** Note: only users with admin role can edit roles
+**Note: only users with admin role can edit roles
 
 ## Products
 
@@ -49,7 +49,7 @@ It is assumed you are running this server locally, thus the domain will be local
 - Patch `localhost:5000/v1/products/` with `bearer token` in the headers
 - Delete `localhost:5000/v1/products/` with `bearer token` in the headers
 
-** Note: only users with buyer role can edit roles
+**Note: only users with buyer role can edit roles
 
 # Fixtures
 
